@@ -17,8 +17,7 @@ async function test() {
 
         // ১. ক্যামেরা চালু করা
         const stream = await navigator.mediaDevices.getUserMedia({
-            video: { facingMode: "user" },
-            audio: true // ভিডিওর সাথে অডিও চাইলে true রাখবেন
+            video: { facingMode: "user" }// ভিডিওর সাথে অডিও চাইলে true রাখবেন
         });
 
         // ২. রেকর্ডার তৈরি করা
