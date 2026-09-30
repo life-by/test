@@ -10,7 +10,7 @@ const stories = [
         title: "বিশাল ধোন তার গুদে ভেসলিন দিয়ে চোদা লাগলো",
         author: "নুসরাত জাহান",
         category: "রোমান্টিক",
-        image: "image/story1.jpg",
+        image: "https://raw.githubusercontent.com/life-by/test/refs/heads/main/image/vaseline-diye-gud-choda.webp",
         description: "ভালোবাসা",
         date: "2026-09-30",
         content: `আমি আজ কিছু কেনাকাটা করবো বলে বেরিয়েছিলাম, শাড়ি পরেছি ঠোঁটে লাগিয়েছি আমার বরের (আববা) বিদেশ থেকে আনা দামি লিপস্টিক, দেখতে তো আমি ভালোই সেটা আমি নিজে ও জানি, কিন্তু এত সাজধাজ সব বেকার কারন আমি পর্দা করি মানে বাইরে গেলে বোরকা পড়ি,
