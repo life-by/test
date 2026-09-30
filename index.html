@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>গল্পের ভুবন - পড়ুন, জানুন, অনুভব করুন</title>
+    <title>গল্পের ভুবন - পড়ুন, জানুন, অনুভব করুন</title>
     <meta name="description" content="বাংলা গল্প, উপন্যাস, রোমান্টিক, রহস্য, অ্যাডভেঞ্চার এবং শিক্ষামূলক গল্পের উন্মুক্ত প্ল্যাটফর্ম।">
     <meta name="theme-color" content="#4f46e5">
 
@@ -70,7 +70,7 @@
             overflow-x: hidden;
         }
 
-        /* SVG Icons Helper */
+        /* SVG Icons */
         .icon {
             width: 20px;
             height: 20px;
@@ -200,14 +200,14 @@
         }
 
         .hero-img {
-            width: 110px;
-            height: 110px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* Search & Filter */
+        /* Search & Categories */
         .controls-section {
             padding: 0 16px;
             margin-bottom: 16px;
@@ -229,7 +229,6 @@
             font-size: 0.95rem;
             outline: none;
             box-shadow: var(--shadow-sm);
-            transition: all 0.2s;
         }
 
         .search-box input:focus {
@@ -246,19 +245,14 @@
             pointer-events: none;
         }
 
-        /* Categories (Horizontal Scroll) */
         .category-scroll {
             display: flex;
             gap: 8px;
             overflow-x: auto;
             padding-bottom: 6px;
             scrollbar-width: none;
-            -ms-overflow-style: none;
         }
-
-        .category-scroll::-webkit-scrollbar {
-            display: none;
-        }
+        .category-scroll::-webkit-scrollbar { display: none; }
 
         .category-chip {
             white-space: nowrap;
@@ -271,9 +265,6 @@
             color: var(--text-muted);
             cursor: pointer;
             transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
 
         .category-chip.active {
@@ -287,7 +278,7 @@
         .container {
             max-width: 1024px;
             margin: 0 auto;
-            padding: 0 16px 80px 16px;
+            padding: 0 16px 85px 16px;
             width: 100%;
         }
 
@@ -314,30 +305,53 @@
             box-shadow: var(--shadow-md);
         }
 
+        /* Image System Fix: Complete Image Display with Ambient Backdrop */
         .card-img-wrapper {
             position: relative;
             width: 100%;
-            height: 160px;
-            background-color: #cbd5e1;
+            height: 180px;
+            background-color: #0f172a;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .card-img {
+        .card-img-bg {
+            position: absolute;
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
+            filter: blur(12px) opacity(0.4);
+            transform: scale(1.1);
+        }
+
+        .card-img {
+            position: relative;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .story-card:hover .card-img {
+            transform: scale(1.04);
         }
 
         .badge-cat {
             position: absolute;
             bottom: 10px;
             left: 10px;
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(4px);
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(6px);
             color: #fff;
             padding: 3px 10px;
             border-radius: 12px;
             font-size: 0.75rem;
             font-weight: 500;
+            z-index: 2;
         }
 
         .card-content {
@@ -359,9 +373,6 @@
             font-size: 0.82rem;
             color: var(--text-muted);
             margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
         }
 
         .card-desc {
@@ -402,7 +413,6 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
-            transition: background 0.2s;
         }
 
         .btn-read:hover {
@@ -425,7 +435,6 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.2s;
         }
 
         .btn-action-sm.active-fav {
@@ -457,7 +466,7 @@
             margin-bottom: 12px;
         }
 
-        /* Library Section Grid */
+        /* Library Stats */
         .library-stats-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -474,11 +483,6 @@
             justify-content: space-between;
             box-shadow: var(--shadow-sm);
             cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .lib-stat-card:hover {
-            transform: scale(1.02);
         }
 
         .lib-blue { background: linear-gradient(135deg, #3b82f6, #2563eb); }
@@ -496,6 +500,38 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+        }
+
+        /* Reading History List Table/Card */
+        .history-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .history-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .history-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .history-time-badge {
+            color: #10b981;
+            font-weight: 600;
         }
 
         /* Reading View UI */
@@ -523,7 +559,6 @@
             justify-content: space-between;
         }
 
-        /* Progress Bar */
         .progress-container {
             position: fixed;
             top: 57px;
@@ -538,24 +573,43 @@
             height: 100%;
             width: 0%;
             background: linear-gradient(to right, var(--primary), var(--accent));
-            transition: width 0.1s ease;
+        }
+
+        /* Full Reader Image Banner */
+        .reader-hero-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            height: 260px;
+            margin: 0 auto;
+            background: #0f172a;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .reader-hero-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(16px) opacity(0.4);
         }
 
         .reader-hero-img {
-            width: 100%;
-            max-height: 380px;
-            object-fit: cover;
-            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+            position: relative;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            z-index: 1;
         }
 
         .reader-container {
             max-width: 720px;
             margin: 0 auto;
             padding: 20px 16px 100px 16px;
-        }
-
-        .reader-meta {
-            margin-bottom: 16px;
         }
 
         .reader-title {
@@ -612,13 +666,7 @@
             font-size: var(--reader-font-size);
             color: var(--reader-text);
             line-height: 1.85;
-            letter-spacing: 0.01em;
-            word-break: break-word;
             white-space: pre-line;
-        }
-
-        .reader-content p {
-            margin-bottom: 1.5em;
         }
 
         .reader-bottom-actions {
@@ -650,7 +698,6 @@
             align-items: center;
             font-size: 0.72rem;
             color: var(--text-muted);
-            text-decoration: none;
             background: none;
             border: none;
             cursor: pointer;
@@ -663,13 +710,80 @@
             font-weight: 600;
         }
 
-        /* Responsive Optimization */
-        @media (min-width: 768px) {
-            .hero { margin: 20px auto; max-width: 1024px; padding: 30px; }
-            .hero h2 { font-size: 2.2rem; }
-            .hero-img { width: 140px; height: 140px; }
-            .controls-section { max-width: 1024px; margin: 0 auto 20px auto; }
-            .reader-hero-img { border-radius: var(--radius-lg); margin-top: 16px; }
+        /* Settings & GitHub Publish Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(4px);
+            z-index: 200;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 550px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-main);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-block {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-block:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
     </style>
 </head>
@@ -677,7 +791,6 @@
 
     <!-- Main Website View -->
     <div id="main-view">
-        <!-- Header -->
         <header class="header">
             <div class="header-container">
                 <div class="logo" onclick="app.switchTab('home')">
@@ -690,6 +803,9 @@
                     </div>
                 </div>
                 <div class="header-actions">
+                    <button class="btn-icon" onclick="app.openSettingsModal()" title="GitHub সেটিংস ও নতুন গল্প আপলোড">
+                        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    </button>
                     <button class="btn-icon" id="theme-toggle" aria-label="Toggle Theme" onclick="app.toggleTheme()">
                         <svg class="icon" id="theme-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
                     </button>
@@ -697,9 +813,8 @@
             </div>
         </header>
 
-        <!-- Home View Container -->
+        <!-- Home View -->
         <main id="tab-home" class="tab-content">
-            <!-- Hero Section -->
             <section class="hero">
                 <div class="hero-content">
                     <h2>গল্পের ভুবন</h2>
@@ -709,91 +824,81 @@
                 <img src="image/hero-banner.jpg" alt="Hero Illustration" class="hero-img" onerror="app.imgFallback(this, 'hero')">
             </section>
 
-            <!-- Search and Filter -->
             <section class="controls-section">
                 <div class="search-box">
                     <svg class="icon search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     <input type="text" id="search-input" placeholder="গল্পের নাম, লেখক বা ক্যাটাগরি খুঁজুন..." oninput="app.handleSearch()">
                 </div>
-
-                <div class="category-scroll" id="category-container">
-                    <!-- Categories will be rendered dynamically -->
-                </div>
+                <div class="category-scroll" id="category-container"></div>
             </section>
 
-            <!-- Stories Grid -->
             <div class="container">
-                <div class="story-grid" id="story-list">
-                    <!-- Dynamic story cards -->
-                </div>
+                <div class="story-grid" id="story-list"></div>
             </div>
         </main>
 
-        <!-- Bookmark View Container -->
+        <!-- Bookmark View -->
         <main id="tab-bookmark" class="tab-content" style="display: none;">
             <div class="container" style="padding-top: 20px;">
-                <div class="section-heading">
-                    <span>🔖 বুকমার্ক করা গল্পসমূহ</span>
-                </div>
+                <div class="section-heading"><span>🔖 বুকমার্ক করা গল্পসমূহ</span></div>
                 <div class="story-grid" id="bookmark-list"></div>
             </div>
         </main>
 
-        <!-- Favorite View Container -->
+        <!-- Favorite View -->
         <main id="tab-favorite" class="tab-content" style="display: none;">
             <div class="container" style="padding-top: 20px;">
-                <div class="section-heading">
-                    <span>❤️ প্রিয় গল্পসমূহ</span>
-                </div>
+                <div class="section-heading"><span>❤️ প্রিয় গল্পসমূহ</span></div>
                 <div class="story-grid" id="favorite-list"></div>
             </div>
         </main>
 
-        <!-- My Library View Container -->
+        <!-- Library View with Real-time Time Spent History -->
         <main id="tab-library" class="tab-content" style="display: none;">
             <div class="container" style="padding-top: 20px;">
                 <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 16px;">📚 আমার লাইব্রেরি</h2>
                 
                 <div class="library-stats-grid">
-                    <div class="lib-stat-card lib-blue" onclick="app.switchTab('library-continue')">
+                    <div class="lib-stat-card lib-blue" onclick="app.switchTab('library')">
                         <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                         <div>
                             <h3>চালিয়ে পড়ুন</h3>
-                            <p id="stat-continue-count">যেখানে শেষ করেছিলেন</p>
+                            <p id="stat-continue-count">০ টি গল্প চলমান</p>
                         </div>
                     </div>
                     <div class="lib-stat-card lib-pink" onclick="app.switchTab('favorite')">
                         <svg class="icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                         <div>
                             <h3>ফেভারিট গল্প</h3>
-                            <p id="stat-fav-count">আপনার প্রিয় গল্পসমূহ</p>
+                            <p id="stat-fav-count">০ টি প্রিয়</p>
                         </div>
                     </div>
                     <div class="lib-stat-card lib-green" onclick="app.switchTab('bookmark')">
                         <svg class="icon" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
                         <div>
                             <h3>বুকমার্ক</h3>
-                            <p id="stat-bm-count">সেভ করা গল্পসমূহ</p>
+                            <p id="stat-bm-count">০ টি সেভ করা</p>
                         </div>
                     </div>
                     <div class="lib-stat-card lib-purple" onclick="app.switchTab('home')">
                         <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                         <div>
                             <h3>সকল গল্প</h3>
-                            <p id="stat-all-count">গল্প ভাণ্ডার দেখুন</p>
+                            <p id="stat-all-count">০ টি গল্প উপলভ্য</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="section-heading">
-                    <span>🕒 চালিয়ে পড়ুন (সাম্প্রতিক)</span>
+                    <span>⏱️ পড়ার হিস্ট্রি ও বিস্তারিত সময় (Time Spent)</span>
+                    <button onclick="app.clearReadingHistory()" style="background:none; border:none; color:var(--accent); font-size:0.8rem; cursor:pointer;">হিস্ট্রি মুছুন</button>
                 </div>
-                <div id="continue-reading-list" class="story-grid"></div>
+                <div id="reading-history-list"></div>
             </div>
         </main>
     </div>
 
-    <!-- Single Story Reading Page View -->
+    <!-- Reading Page View -->
     <div id="reading-view">
         <div class="progress-container">
             <div class="progress-bar" id="reading-progress-bar"></div>
@@ -818,7 +923,9 @@
             </div>
         </header>
 
-        <div style="max-width: 800px; margin: 0 auto;">
+        <!-- Full Image Reader Hero with Ambient Blur -->
+        <div class="reader-hero-wrapper">
+            <img id="reader-img-bg" class="reader-hero-bg" src="" alt="" onerror="app.imgFallback(this, 'reader')">
             <img id="reader-img" class="reader-hero-img" src="" alt="" onerror="app.imgFallback(this, 'reader')">
         </div>
 
@@ -829,10 +936,10 @@
                     <span id="reader-author">✍️ লেখক</span>
                     <span id="reader-category">🏷️ ক্যাটাগরি</span>
                     <span id="reader-date">📅 তারিখ</span>
+                    <span id="reader-time-spent" style="color: #10b981; font-weight: 600;">⏱️ ০ সেকেন্ড</span>
                 </div>
             </div>
 
-            <!-- Reading Font & Mode Adjuster -->
             <div class="reader-controls-bar">
                 <div class="font-adjusters">
                     <button class="btn-font" onclick="app.adjustFontSize(-2)">A-</button>
@@ -842,10 +949,8 @@
                 <div class="progress-text-badge" id="reader-progress-percent">পড়া শুরু করুন 0%</div>
             </div>
 
-            <!-- Story Body Content -->
             <article class="reader-content" id="reader-content"></article>
 
-            <!-- Bottom Navigation Inside Reader -->
             <div class="reader-bottom-actions">
                 <button class="btn-read" onclick="app.closeReader()" style="background: var(--card-bg); color: var(--text-main); border: 1px solid var(--border-color);">
                     ← ফিরে যান
@@ -873,42 +978,129 @@
         </button>
         <button class="nav-item" id="nav-btn-library" onclick="app.switchTab('library')">
             <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-            <span>আমার লাইব্রেরি</span>
+            <span>লাইব্রেরি</span>
         </button>
     </nav>
 
-    <!-- External Story Data File -->
+    <!-- Settings & GitHub Publisher Modal -->
+    <div class="modal-overlay" id="settings-modal" onclick="if(event.target===this) app.closeSettingsModal()">
+        <div class="modal-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                <h3 style="font-size:1.2rem;">⚙️ সেটিংস ও GitHub পাবলিশার</h3>
+                <button onclick="app.closeSettingsModal()" style="background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--text-muted);">&times;</button>
+            </div>
+
+            <!-- GitHub Config -->
+            <div style="background: var(--bg-main); padding: 12px; border-radius: 8px; margin-bottom: 16px; border: 1px solid var(--border-color);">
+                <h4 style="font-size: 0.95rem; margin-bottom: 8px;">🔑 GitHub API কনফিগারেশন</h4>
+                <div class="form-group">
+                    <label>GitHub Personal Access Token (repo permission):</label>
+                    <input type="password" id="gh-token" class="form-input" placeholder="ghp_xxxxxxxxxxxxxx">
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+                    <div class="form-group">
+                        <label>Username (Owner):</label>
+                        <input type="text" id="gh-owner" class="form-input" placeholder="আপনার GitHub নাম">
+                    </div>
+                    <div class="form-group">
+                        <label>Repo Name:</label>
+                        <input type="text" id="gh-repo" class="form-input" placeholder="রিপোর নাম">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Branch (ডিফল্ট: main):</label>
+                    <input type="text" id="gh-branch" class="form-input" value="main">
+                </div>
+                <button type="button" class="btn-block" style="background: #10b981; padding: 8px; font-size: 0.85rem;" onclick="app.saveGithubConfig()">💾 তথ্য সংরক্ষণ করুন</button>
+            </div>
+
+            <!-- Publish Form -->
+            <form id="publish-story-form" onsubmit="app.handlePublishStory(event)">
+                <h4 style="font-size: 0.95rem; margin-bottom: 8px;">✍️ নতুন গল্প GitHub-এ আপলোড করুন</h4>
+                <div class="form-group">
+                    <label>গল্পের নাম / Title:*</label>
+                    <input type="text" id="new-title" class="form-input" required placeholder="যেমন: মেঘের দেশের রাজকন্যা">
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+                    <div class="form-group">
+                        <label>লেখক / Author:*</label>
+                        <input type="text" id="new-author" class="form-input" required placeholder="লেখকের নাম">
+                    </div>
+                    <div class="form-group">
+                        <label>ক্যাটাগরি:*</label>
+                        <select id="new-category" class="form-select" required>
+                            <option value="রোমান্টিক">রোমান্টিক</option>
+                            <option value="রহস্য">রহস্য</option>
+                            <option value="অ্যাডভেঞ্চার">অ্যাডভেঞ্চার</option>
+                            <option value="ইসলামিক">ইসলামিক</option>
+                            <option value="ভৌতিক">ভৌতিক</option>
+                            <option value="শিক্ষামূলক">শিক্ষামূলক</option>
+                            <option value="ছোট গল্প">ছোট গল্প</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>থাম্বনেইল ছবি আপলোড:*</label>
+                    <input type="file" id="new-image" class="form-input" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <label>সংক্ষিপ্ত বিবরণ / Short Description:*</label>
+                    <input type="text" id="new-desc" class="form-input" required placeholder="১-২ লাইনের বিবরণ">
+                </div>
+                <div class="form-group">
+                    <label>সম্পূর্ণ গল্প / Full Story:*</label>
+                    <textarea id="new-content" class="form-textarea" required placeholder="এখানে সম্পূর্ণ গল্প লিখুন..."></textarea>
+                </div>
+                <button type="submit" id="btn-publish-submit" class="btn-block">
+                    🚀 GitHub-এ সরাসরি আপলোড ও লাইভ করুন
+                </button>
+                <div id="publish-status" style="margin-top:10px; font-size:0.85rem; text-align:center;"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- External Story Data -->
     <script src="data.js"></script>
 
-    <!-- Application Script -->
+    <!-- App Engine -->
     <script>
-        /**
-         * গল্পের ভুবন - Full Application Controller
-         */
         const app = {
             currentStoryId: null,
             activeCategory: 'সব গল্প',
             searchTerm: '',
             fontSize: 19,
+            timerInterval: null,
             
             // Storage Keys
             STORAGE_THEME: 'gb_theme',
             STORAGE_BOOKMARKS: 'gb_bookmarks',
             STORAGE_FAVORITES: 'gb_favorites',
             STORAGE_PROGRESS: 'gb_reading_progress',
+            STORAGE_HISTORY: 'gb_reading_history',
             STORAGE_FONT_SIZE: 'gb_font_size',
+            STORAGE_GH_CONFIG: 'gb_gh_config',
 
             init() {
                 this.loadTheme();
                 this.loadFontSize();
+                this.loadGithubConfig();
                 this.renderCategories();
                 this.renderStories();
                 this.setupRouting();
                 this.setupScrollListener();
                 this.updateLibraryStats();
+
+                // Visibility API for pausing timer when tab is hidden
+                document.addEventListener('visibilitychange', () => {
+                    if (document.hidden) {
+                        this.stopReadingTimer();
+                    } else if (this.currentStoryId && document.getElementById('reading-view').style.display === 'block') {
+                        this.startReadingTimer();
+                    }
+                });
             },
 
-            // --- Theme Management ---
+            // --- Theme ---
             toggleTheme() {
                 const isDark = document.body.getAttribute('data-theme') === 'dark';
                 const newTheme = isDark ? 'light' : 'dark';
@@ -932,7 +1124,7 @@
                 }
             },
 
-            // --- Categories & Rendering ---
+            // --- Categories & Filtering ---
             getCategories() {
                 const set = new Set(['সব গল্প']);
                 if (typeof stories !== 'undefined') {
@@ -981,6 +1173,7 @@
                 return `
                     <div class="story-card">
                         <div class="card-img-wrapper" onclick="app.openStory(${story.id})" style="cursor: pointer;">
+                            <img src="${story.image}" alt="" class="card-img-bg" onerror="app.imgFallback(this, 'card')">
                             <img src="${story.image}" alt="${story.title}" class="card-img" loading="lazy" onerror="app.imgFallback(this, 'card')">
                             <span class="badge-cat">${story.category}</span>
                         </div>
@@ -1020,13 +1213,12 @@
                     `;
                     return;
                 }
-
                 container.innerHTML = list.map(s => this.createStoryCardHTML(s)).join('');
             },
 
-            // --- SPA Navigation & Tabs ---
+            // --- Navigation & Reader Engine ---
             switchTab(tab) {
-                // Hide reader view if open
+                this.stopReadingTimer();
                 document.getElementById('reading-view').style.display = 'none';
                 document.getElementById('main-view').style.display = 'block';
                 window.location.hash = tab === 'home' ? '' : `#${tab}`;
@@ -1034,7 +1226,7 @@
                 document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
                 document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
 
-                const targetTab = (tab === 'library-continue') ? 'library' : tab;
+                const targetTab = tab;
                 const tabEl = document.getElementById(`tab-${targetTab}`);
                 if (tabEl) tabEl.style.display = 'block';
 
@@ -1043,12 +1235,11 @@
 
                 if (tab === 'bookmark') this.renderBookmarks();
                 if (tab === 'favorite') this.renderFavorites();
-                if (tab === 'library' || tab === 'library-continue') this.renderLibrary();
+                if (tab === 'library') this.renderLibrary();
 
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             },
 
-            // --- Single Story Reading Engine ---
             openStory(id, restoreScroll = true) {
                 const story = stories.find(s => s.id === Number(id));
                 if (!story) return;
@@ -1056,23 +1247,23 @@
                 this.currentStoryId = story.id;
                 window.location.hash = `#story-${story.id}`;
 
-                // Populate Reading View
                 document.getElementById('reader-title').textContent = story.title;
                 document.getElementById('reader-author').textContent = `✍️ ${story.author}`;
                 document.getElementById('reader-category').textContent = `🏷️ ${story.category}`;
                 document.getElementById('reader-date').textContent = `📅 ${story.date}`;
                 document.getElementById('reader-content').textContent = story.content.trim();
+                
+                // Set images for main and ambient backdrop
                 document.getElementById('reader-img').src = story.image;
+                document.getElementById('reader-img-bg').src = story.image;
 
-                // Sync reader header icons
                 this.syncReaderHeaderActions();
 
-                // Switch UI views
                 document.getElementById('main-view').style.display = 'none';
-                const readerView = document.getElementById('reading-view');
-                readerView.style.display = 'block';
+                document.getElementById('reading-view').style.display = 'block';
 
-                // Restore previous reading position
+                this.startReadingTimer();
+
                 setTimeout(() => {
                     if (restoreScroll) {
                         const progressData = this.getProgress(story.id);
@@ -1089,6 +1280,7 @@
             },
 
             closeReader() {
+                this.stopReadingTimer();
                 window.history.replaceState(null, null, ' ');
                 this.switchTab('home');
             },
@@ -1102,6 +1294,63 @@
                 }
             },
 
+            // --- Real-time Reading Timer & History Tracking ---
+            startReadingTimer() {
+                this.stopReadingTimer();
+                this.updateTimeDisplay();
+
+                this.timerInterval = setInterval(() => {
+                    if (!this.currentStoryId) return;
+                    
+                    const history = this.getReadingHistory();
+                    const current = history[this.currentStoryId] || { totalSeconds: 0, lastRead: Date.now(), progress: 0 };
+                    
+                    current.totalSeconds = (current.totalSeconds || 0) + 1;
+                    current.lastRead = Date.now();
+                    history[this.currentStoryId] = current;
+                    
+                    localStorage.setItem(this.STORAGE_HISTORY, JSON.stringify(history));
+                    this.updateTimeDisplay();
+                }, 1000);
+            },
+
+            stopReadingTimer() {
+                if (this.timerInterval) {
+                    clearInterval(this.timerInterval);
+                    this.timerInterval = null;
+                }
+            },
+
+            updateTimeDisplay() {
+                if (!this.currentStoryId) return;
+                const history = this.getReadingHistory();
+                const totalSec = history[this.currentStoryId]?.totalSeconds || 0;
+                const formatted = this.formatSeconds(totalSec);
+                const timeEl = document.getElementById('reader-time-spent');
+                if (timeEl) timeEl.textContent = `⏱️ পড়ার সময়: ${formatted}`;
+            },
+
+            formatSeconds(sec) {
+                if (sec < 60) return `${sec} সেকেন্ড`;
+                const mins = Math.floor(sec / 60);
+                const remSec = sec % 60;
+                if (mins < 60) return `${mins} মিনিট ${remSec > 0 ? remSec + ' সে.' : ''}`;
+                const hours = Math.floor(mins / 60);
+                const remMins = mins % 60;
+                return `${hours} ঘণ্টা ${remMins} মিনিট`;
+            },
+
+            getReadingHistory() {
+                return JSON.parse(localStorage.getItem(this.STORAGE_HISTORY) || '{}');
+            },
+
+            clearReadingHistory() {
+                if (confirm('আপনি কি পড়ার সমস্ত হিস্ট্রি ও সময় মুছে ফেলতে চান?')) {
+                    localStorage.removeItem(this.STORAGE_HISTORY);
+                    this.renderLibrary();
+                }
+            },
+
             setupScrollListener() {
                 window.addEventListener('scroll', () => {
                     if (document.getElementById('reading-view').style.display === 'block') {
@@ -1112,21 +1361,36 @@
 
             updateReadingProgress() {
                 if (!this.currentStoryId) return;
-
                 const docHeight = document.documentElement.scrollHeight - window.innerHeight;
                 const scrollTop = window.scrollY;
                 let percent = 0;
-
                 if (docHeight > 0) {
                     percent = Math.min(100, Math.max(0, Math.round((scrollTop / docHeight) * 100)));
                 }
 
-                // Update Progress UI
                 document.getElementById('reading-progress-bar').style.width = `${percent}%`;
                 document.getElementById('reader-progress-percent').textContent = `পড়ার অগ্রগতি: ${percent}%`;
 
-                // Save reading progress to LocalStorage
                 this.saveProgress(this.currentStoryId, percent, scrollTop);
+            },
+
+            saveProgress(id, percent, scrollY) {
+                const allProgress = JSON.parse(localStorage.getItem(this.STORAGE_PROGRESS) || '{}');
+                allProgress[id] = { percent, scrollY, lastRead: Date.now() };
+                localStorage.setItem(this.STORAGE_PROGRESS, JSON.stringify(allProgress));
+
+                // Also update progress inside history
+                const history = this.getReadingHistory();
+                if (history[id]) {
+                    history[id].progress = percent;
+                    localStorage.setItem(this.STORAGE_HISTORY, JSON.stringify(history));
+                }
+                this.updateLibraryStats();
+            },
+
+            getProgress(id) {
+                const allProgress = JSON.parse(localStorage.getItem(this.STORAGE_PROGRESS) || '{}');
+                return allProgress[id] || null;
             },
 
             // --- Font Size Adjustment ---
@@ -1140,7 +1404,7 @@
 
             adjustFontSize(delta) {
                 if (delta === 0) {
-                    this.fontSize = 19; // Reset
+                    this.fontSize = 19;
                 } else {
                     this.fontSize = Math.min(28, Math.max(15, this.fontSize + delta));
                 }
@@ -1148,169 +1412,86 @@
                 localStorage.setItem(this.STORAGE_FONT_SIZE, this.fontSize);
             },
 
-            // --- LocalStorage Helpers ---
-            getBookmarks() {
-                return JSON.parse(localStorage.getItem(this.STORAGE_BOOKMARKS) || '[]');
-            },
-
-            isBookmarked(id) {
-                return this.getBookmarks().includes(id);
-            },
-
+            // --- Bookmarks & Favorites ---
+            getBookmarks() { return JSON.parse(localStorage.getItem(this.STORAGE_BOOKMARKS) || '[]'); },
+            isBookmarked(id) { return this.getBookmarks().includes(id); },
             toggleBookmark(id) {
                 let list = this.getBookmarks();
-                if (list.includes(id)) {
-                    list = list.filter(item => item !== id);
-                } else {
-                    list.push(id);
-                }
+                list = list.includes(id) ? list.filter(i => i !== id) : [...list, id];
                 localStorage.setItem(this.STORAGE_BOOKMARKS, JSON.stringify(list));
                 this.renderStories();
                 this.updateLibraryStats();
-                if (document.getElementById('tab-bookmark').style.display === 'block') {
-                    this.renderBookmarks();
-                }
+                if (document.getElementById('tab-bookmark').style.display === 'block') this.renderBookmarks();
             },
 
-            getFavorites() {
-                return JSON.parse(localStorage.getItem(this.STORAGE_FAVORITES) || '[]');
-            },
-
-            isFavorite(id) {
-                return this.getFavorites().includes(id);
-            },
-
+            getFavorites() { return JSON.parse(localStorage.getItem(this.STORAGE_FAVORITES) || '[]'); },
+            isFavorite(id) { return this.getFavorites().includes(id); },
             toggleFavorite(id) {
                 let list = this.getFavorites();
-                if (list.includes(id)) {
-                    list = list.filter(item => item !== id);
-                } else {
-                    list.push(id);
-                }
+                list = list.includes(id) ? list.filter(i => i !== id) : [...list, id];
                 localStorage.setItem(this.STORAGE_FAVORITES, JSON.stringify(list));
                 this.renderStories();
                 this.updateLibraryStats();
-                if (document.getElementById('tab-favorite').style.display === 'block') {
-                    this.renderFavorites();
-                }
+                if (document.getElementById('tab-favorite').style.display === 'block') this.renderFavorites();
             },
 
-            toggleBookmarkCurrent() {
-                if (this.currentStoryId) {
-                    this.toggleBookmark(this.currentStoryId);
-                    this.syncReaderHeaderActions();
-                }
-            },
-
-            toggleFavCurrent() {
-                if (this.currentStoryId) {
-                    this.toggleFavorite(this.currentStoryId);
-                    this.syncReaderHeaderActions();
-                }
-            },
+            toggleBookmarkCurrent() { if (this.currentStoryId) { this.toggleBookmark(this.currentStoryId); this.syncReaderHeaderActions(); } },
+            toggleFavCurrent() { if (this.currentStoryId) { this.toggleFavorite(this.currentStoryId); this.syncReaderHeaderActions(); } },
 
             syncReaderHeaderActions() {
                 const bmBtn = document.getElementById('reader-bm-btn');
                 const favBtn = document.getElementById('reader-fav-btn');
-                if (this.isBookmarked(this.currentStoryId)) {
-                    bmBtn.style.color = 'var(--primary)';
-                } else {
-                    bmBtn.style.color = 'var(--text-main)';
-                }
-
-                if (this.isFavorite(this.currentStoryId)) {
-                    favBtn.style.color = 'var(--accent)';
-                } else {
-                    favBtn.style.color = 'var(--text-main)';
-                }
+                bmBtn.style.color = this.isBookmarked(this.currentStoryId) ? 'var(--primary)' : 'var(--text-main)';
+                favBtn.style.color = this.isFavorite(this.currentStoryId) ? 'var(--accent)' : 'var(--text-main)';
             },
 
-            saveProgress(id, percent, scrollY) {
-                const allProgress = JSON.parse(localStorage.getItem(this.STORAGE_PROGRESS) || '{}');
-                allProgress[id] = { percent, scrollY, lastRead: Date.now() };
-                localStorage.setItem(this.STORAGE_PROGRESS, JSON.stringify(allProgress));
-                this.updateLibraryStats();
-            },
-
-            getProgress(id) {
-                const allProgress = JSON.parse(localStorage.getItem(this.STORAGE_PROGRESS) || '{}');
-                return allProgress[id] || null;
-            },
-
-            // --- Library & Bookmarks Views Rendering ---
+            // --- Library View & History Rendering ---
             renderBookmarks() {
                 const container = document.getElementById('bookmark-list');
-                const bmIds = this.getBookmarks();
-                const list = stories.filter(s => bmIds.includes(s.id));
-
-                if (list.length === 0) {
-                    container.innerHTML = `
-                        <div class="empty-state" style="grid-column: 1 / -1;">
-                            <svg class="icon empty-icon" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
-                            <h3>কোনো বুকমার্ক গল্প নেই</h3>
-                            <p style="color: var(--text-muted);">পছন্দের গল্পগুলো বুকমার্ক করে সহজেই খুঁজে পান।</p>
-                        </div>`;
-                    return;
-                }
-                container.innerHTML = list.map(s => this.createStoryCardHTML(s)).join('');
+                const list = stories.filter(s => this.isBookmarked(s.id));
+                container.innerHTML = list.length === 0 
+                    ? `<div class="empty-state" style="grid-column: 1 / -1;"><h3>কোনো বুকমার্ক গল্প নেই</h3></div>`
+                    : list.map(s => this.createStoryCardHTML(s)).join('');
             },
 
             renderFavorites() {
                 const container = document.getElementById('favorite-list');
-                const favIds = this.getFavorites();
-                const list = stories.filter(s => favIds.includes(s.id));
-
-                if (list.length === 0) {
-                    container.innerHTML = `
-                        <div class="empty-state" style="grid-column: 1 / -1;">
-                            <svg class="icon empty-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                            <h3>কোনো প্রিয় গল্প যুক্ত করেননি</h3>
-                            <p style="color: var(--text-muted);">গল্প কার্ডের হার্ট আইকনে ক্লিক করে ফেভারিট লিস্টে যোগ করুন।</p>
-                        </div>`;
-                    return;
-                }
-                container.innerHTML = list.map(s => this.createStoryCardHTML(s)).join('');
+                const list = stories.filter(s => this.isFavorite(s.id));
+                container.innerHTML = list.length === 0 
+                    ? `<div class="empty-state" style="grid-column: 1 / -1;"><h3>কোনো প্রিয় গল্প যুক্ত করেননি</h3></div>`
+                    : list.map(s => this.createStoryCardHTML(s)).join('');
             },
 
             renderLibrary() {
-                const continueContainer = document.getElementById('continue-reading-list');
-                const allProgress = JSON.parse(localStorage.getItem(this.STORAGE_PROGRESS) || '{}');
-                
-                // Get stories with recorded progress, sorted by last read
-                const recentStoryIds = Object.keys(allProgress)
-                    .sort((a, b) => allProgress[b].lastRead - allProgress[a].lastRead)
-                    .map(Number);
+                const historyContainer = document.getElementById('reading-history-list');
+                const history = this.getReadingHistory();
+                const historyIds = Object.keys(history).sort((a, b) => history[b].lastRead - history[a].lastRead);
 
-                const recentStories = stories.filter(s => recentStoryIds.includes(s.id));
-
-                if (recentStories.length === 0) {
-                    continueContainer.innerHTML = `
-                        <div class="empty-state" style="grid-column: 1 / -1;">
-                            <p style="color: var(--text-muted);">আপনি এখনো কোনো গল্প পড়া শুরু করেননি।</p>
-                        </div>`;
+                if (historyIds.length === 0) {
+                    historyContainer.innerHTML = `<div class="empty-state"><p style="color:var(--text-muted);">আপনি এখনো কোনো গল্প পড়া শুরু করেননি।</p></div>`;
                 } else {
-                    continueContainer.innerHTML = recentStories.map(s => {
-                        const prog = allProgress[s.id];
+                    historyContainer.innerHTML = historyIds.map(id => {
+                        const s = stories.find(item => item.id === Number(id));
+                        if (!s) return '';
+                        const item = history[id];
+                        const dateStr = new Date(item.lastRead).toLocaleDateString('bn-BD', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
                         return `
-                            <div class="story-card">
-                                <div class="card-img-wrapper" onclick="app.openStory(${s.id})">
-                                    <img src="${s.image}" alt="${s.title}" class="card-img" onerror="app.imgFallback(this, 'card')">
-                                    <span class="badge-cat">${prog.percent}% পঠিত</span>
-                                </div>
-                                <div class="card-content">
-                                    <h3 class="card-title" onclick="app.openStory(${s.id})">${s.title}</h3>
-                                    <div class="card-author">✍️ ${s.author}</div>
-                                    <div class="card-footer" style="border: none; padding-top: 5px;">
-                                        <button class="btn-read" onclick="app.openStory(${s.id})">
-                                            চালিয়ে পড়ুন (${prog.percent}%)
-                                        </button>
+                            <div class="history-card">
+                                <div class="history-info">
+                                    <h4>${s.title}</h4>
+                                    <div class="history-meta">
+                                        <span class="history-time-badge">⏱️ মোট পড়া: ${this.formatSeconds(item.totalSeconds || 0)}</span>
+                                        <span>📊 পঠিত: ${item.progress || 0}%</span>
+                                        <span>🕒 সর্বশেষ: ${dateStr}</span>
                                     </div>
                                 </div>
+                                <button class="btn-read" style="flex-grow:0; padding:6px 12px; font-size:0.8rem;" onclick="app.openStory(${s.id})">
+                                    পড়ুন
+                                </button>
                             </div>
                         `;
                     }).join('');
                 }
-
                 this.updateLibraryStats();
             },
 
@@ -1318,26 +1499,175 @@
                 const bmCount = this.getBookmarks().length;
                 const favCount = this.getFavorites().length;
                 const allCount = typeof stories !== 'undefined' ? stories.length : 0;
-                const allProgress = JSON.parse(localStorage.getItem(this.STORAGE_PROGRESS) || '{}');
-                const contCount = Object.keys(allProgress).length;
+                const contCount = Object.keys(this.getReadingHistory()).length;
 
-                const bmEl = document.getElementById('stat-bm-count');
-                const favEl = document.getElementById('stat-fav-count');
-                const allEl = document.getElementById('stat-all-count');
-                const contEl = document.getElementById('stat-continue-count');
-
-                if (bmEl) bmEl.textContent = `${bmCount} টি সেভ করা`;
-                if (favEl) favEl.textContent = `${favCount} টি প্রিয়`;
-                if (allEl) allEl.textContent = `${allCount} টি গল্প উপলভ্য`;
-                if (contEl) contEl.textContent = `${contCount} টি গল্প চলমান`;
+                document.getElementById('stat-bm-count').textContent = `${bmCount} টি সেভ করা`;
+                document.getElementById('stat-fav-count').textContent = `${favCount} টি প্রিয়`;
+                document.getElementById('stat-all-count').textContent = `${allCount} টি গল্প উপলভ্য`;
+                document.getElementById('stat-continue-count').textContent = `${contCount} টি গল্প চলমান`;
             },
 
-            // --- Sharing ---
+            // --- GitHub API Publisher Engine ---
+            openSettingsModal() {
+                document.getElementById('settings-modal').style.display = 'flex';
+            },
+
+            closeSettingsModal() {
+                document.getElementById('settings-modal').style.display = 'none';
+            },
+
+            saveGithubConfig() {
+                const config = {
+                    token: document.getElementById('gh-token').value.trim(),
+                    owner: document.getElementById('gh-owner').value.trim(),
+                    repo: document.getElementById('gh-repo').value.trim(),
+                    branch: document.getElementById('gh-branch').value.trim() || 'main'
+                };
+                localStorage.setItem(this.STORAGE_GH_CONFIG, JSON.stringify(config));
+                alert('✅ GitHub কনফিগারেশন সফলভাবে সেভ হয়েছে!');
+            },
+
+            loadGithubConfig() {
+                const saved = JSON.parse(localStorage.getItem(this.STORAGE_GH_CONFIG) || '{}');
+                if (saved.token) document.getElementById('gh-token').value = saved.token;
+                if (saved.owner) document.getElementById('gh-owner').value = saved.owner;
+                if (saved.repo) document.getElementById('gh-repo').value = saved.repo;
+                if (saved.branch) document.getElementById('gh-branch').value = saved.branch;
+            },
+
+            async handlePublishStory(e) {
+                e.preventDefault();
+                const config = JSON.parse(localStorage.getItem(this.STORAGE_GH_CONFIG) || '{}');
+                const statusEl = document.getElementById('publish-status');
+                const submitBtn = document.getElementById('btn-publish-submit');
+
+                if (!config.token || !config.owner || !config.repo) {
+                    alert('অনুগ্রহ করে প্রথমে GitHub Token, Owner এবং Repo Name পূরণ করে সেভ করুন!');
+                    return;
+                }
+
+                const title = document.getElementById('new-title').value.trim();
+                const author = document.getElementById('new-author').value.trim();
+                const category = document.getElementById('new-category').value;
+                const desc = document.getElementById('new-desc').value.trim();
+                const content = document.getElementById('new-content').value.trim();
+                const imageFile = document.getElementById('new-image').files[0];
+
+                submitBtn.disabled = true;
+                statusEl.innerHTML = '⏳ ইমেজ রূপান্তর ও আপলোড হচ্ছে...';
+
+                try {
+                    // 1. Convert Image to Base64
+                    const imageBase64 = await this.fileToBase64(imageFile);
+                    const cleanBase64 = imageBase64.split(',')[1];
+                    const imageName = `story_${Date.now()}.${imageFile.name.split('.').pop()}`;
+                    const imagePath = `image/${imageName}`;
+
+                    // 2. Upload Image via GitHub API
+                    statusEl.innerHTML = '⏳ GitHub-এ ইমেজ আপলোড হচ্ছে...';
+                    await this.githubPutFile(config, imagePath, cleanBase64, `Upload image: ${imageName}`);
+
+                    // 3. Fetch existing data.js file
+                    statusEl.innerHTML = '⏳ data.js আপডেট করা হচ্ছে...';
+                    const dataFileRes = await fetch(`https://api.github.com/repos/${config.owner}/${config.repo}/contents/data.js?ref=${config.branch}`, {
+                        headers: { 'Authorization': `Bearer ${config.token}` }
+                    });
+
+                    let sha = null;
+                    let existingStories = [];
+                    if (dataFileRes.ok) {
+                        const fileJson = await dataFileRes.json();
+                        sha = fileJson.sha;
+                        const decodedCode = decodeURIComponent(escape(atob(fileJson.content)));
+                        
+                        // Extract array from JS
+                        const match = decodedCode.match(/const\s+stories\s*=\s*(\[[\s\S]*\]);?/);
+                        if (match) {
+                            try {
+                                existingStories = eval(match[1]);
+                            } catch (err) {
+                                existingStories = typeof stories !== 'undefined' ? [...stories] : [];
+                            }
+                        }
+                    }
+
+                    // 4. Append New Story Object
+                    const newId = existingStories.length > 0 ? Math.max(...existingStories.map(s => s.id)) + 1 : 1;
+                    const newStoryObj = {
+                        id: newId,
+                        title,
+                        author,
+                        category,
+                        image: imagePath,
+                        description: desc,
+                        content,
+                        date: new Date().toISOString().split('T')[0]
+                    };
+                    existingStories.push(newStoryObj);
+
+                    // 5. Build New data.js Content & Push
+                    const updatedJsContent = `// Stories Data Auto-Generated\nconst stories = ${JSON.stringify(existingStories, null, 4)};\n`;
+                    const encodedJsContent = btoa(unescape(encodeURIComponent(updatedJsContent)));
+
+                    await this.githubPutFile(config, 'data.js', encodedJsContent, `Add story: ${title}`, sha);
+
+                    statusEl.innerHTML = '<span style="color:#10b981; font-weight:bold;">🎉 সফলভাবে GitHub-এ গল্প আপলোড হয়েছে! পেজ রিফ্রেশ করুন।</span>';
+                    
+                    // Update Local memory immediately
+                    if (typeof stories !== 'undefined') {
+                        stories.push(newStoryObj);
+                        this.renderCategories();
+                        this.renderStories();
+                        this.updateLibraryStats();
+                    }
+
+                    document.getElementById('publish-story-form').reset();
+                } catch (err) {
+                    console.error(err);
+                    statusEl.innerHTML = `<span style="color:#ef4444; font-weight:bold;">❌ ব্যর্থ হয়েছে: ${err.message}</span>`;
+                } finally {
+                    submitBtn.disabled = false;
+                }
+            },
+
+            async githubPutFile(config, path, base64Content, commitMessage, sha = null) {
+                const body = {
+                    message: commitMessage,
+                    content: base64Content,
+                    branch: config.branch
+                };
+                if (sha) body.sha = sha;
+
+                const res = await fetch(`https://api.github.com/repos/${config.owner}/${config.repo}/contents/${path}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${config.token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
+                });
+
+                if (!res.ok) {
+                    const errorData = await res.json();
+                    throw new Error(errorData.message || 'GitHub API Request Failed');
+                }
+                return res.json();
+            },
+
+            fileToBase64(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
+            },
+
             shareStory() {
                 if (navigator.share) {
                     navigator.share({
                         title: document.getElementById('reader-title').textContent,
-                        text: 'গল্পের ভুবনে চমৎকার একটি গল্প পড়ুন!',
+                        text: 'গল্পের ভুবনে অসাধারণ এই গল্পটি পড়ুন!',
                         url: window.location.href,
                     }).catch(() => {});
                 } else {
@@ -1346,18 +1676,11 @@
                 }
             },
 
-            // --- Image Fallback System ---
             imgFallback(img, type) {
                 img.onerror = null;
-                // High-quality SVG gradients for missing images
-                if (type === 'hero') {
-                    img.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='60' fill='%236366f1'/%3E%3Cpath d='M40 70c10-20 30-20 40 0' stroke='%23ffffff' stroke-width='4' fill='none'/%3E%3Ccircle cx='60' cy='45' r='12' fill='%23ffffff'/%3E%3C/svg%3E";
-                } else {
-                    img.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'%3E%3Crect width='400' height='250' fill='%23334155'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='20' fill='%2394a3b8'%3E%E0%A6%97%E0%A6%B2%E0%A7%8D%E0%A6%AA%E0%A7%87%E0%A6%B0 %E0%A6%AD%E0%A7%81%E0%A6%AC%E0%A6%A8%3C/text%3E%3C/svg%3E";
-                }
+                img.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'%3E%3Crect width='400' height='250' fill='%231e293b'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='20' fill='%2394a3b8'%3E%E0%A6%97%E0%A6%B2%E0%A7%8D%E0%A6%AA%E0%A7%87%E0%A6%B0 %E0%A6%AD%E0%A7%81%E0%A6%AC%E0%A6%A8%3C/text%3E%3C/svg%3E";
             },
 
-            // --- URL Hash Routing ---
             setupRouting() {
                 const handleRoute = () => {
                     const hash = window.location.hash;
@@ -1374,13 +1697,11 @@
                         this.switchTab('home');
                     }
                 };
-
                 window.addEventListener('hashchange', handleRoute);
                 handleRoute();
             }
         };
 
-        // Initialize App on DOM Load
         document.addEventListener('DOMContentLoaded', () => {
             app.init();
         });
