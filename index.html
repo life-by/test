@@ -1190,7 +1190,22 @@ const ERAS = [
                 };
                 img.onerror = () => {};
                 img.src = bName + '.png';
+
+
             }
+       // --- সম্পদের আইকন (PNG) লোড করার নতুন কোড শুরু ---
+            const singleResources = ['gold', 'food', 'wood', 'stone', 'iron', 'electricity', 'water', 'bricks', 'cloth', 'meat'];
+            for (const rName of singleResources) {
+                const img = new Image();
+                img.onload = () => {
+                    // ক্যানভাসের জটিলতা বাদ দিয়ে সরাসরি ছবির নাম ব্যবহার করা হলো
+                    this.resourceUrls[rName] = rName + '.png'; 
+                    UIManager.updateHUD(); 
+                    UIManager.renderModalContent('market'); 
+                };
+                img.onerror = () => {}; 
+                img.src = rName + '.png';
+            } 
             // --- আলাদা ছবির জন্য নতুন কোড শেষ ---
             for (const sheetKey in SPRITE_SHEETS_CONFIG) {
                 if (this.loadedSheets.has(sheetKey)) continue;
@@ -2122,19 +2137,65 @@ const ERAS = [
             const halfW = CONFIG.TILE_W / 2, halfH = CONFIG.TILE_H / 2;
             return { x: Math.floor((wx / halfW + wy / halfH) / 2), y: Math.floor((wy / halfH - wx / halfW) / 2) };
         },
-        handleTap(sx, sy) {
-            const { x, y } = this.screenToIso(sx, sy);
-            if (!WorldManager.isInsideBounds(x, y)) return;
-            this.hoverTile = { x, y };
+handleTap(sx, sy) {
+            let { x, y } = this.screenToIso(sx, sy);
             const tool = BuildingManager.activeBuildTool;
+
+            // বিল্ডিংয়ের ছবির উপর চাপ পড়েছে কি না তা খোঁজার কোড
+            const wx = (sx - this.x) / this.zoom;
+            const wy = (sy - this.y) / this.zoom;
+            let clickedB = null;
+            let highestZ = -9999;
+
+            for (let key in BuildingManager.map) {
+                const b = BuildingManager.map[key];
+                const spec = BUILDINGS[b.type];
+                if (!spec || spec.isRoad) continue;
+
+                const px = (b.x - b.y) * (CONFIG.TILE_W / 2);
+                const py = (b.x + b.y) * (CONFIG.TILE_H / 2);
+                
+                let dx, dy, w, h;
+                const sprite = SpriteManager.getBuildingSprite(b.type, b.level);
+                
+                if (sprite) {
+                    const scaleMult = 0.9;
+                    w = CONFIG.TILE_W * scaleMult;
+                    h = w * (sprite.height / sprite.width);
+                    dx = px - w / 2;
+                    dy = py + (CONFIG.TILE_H * 0.52) - h;
+                } else {
+                    h = (spec.height || 20) + (b.level - 1) * 4 + 11;
+                    w = 44; dx = px - 22; dy = py - h;
+                }
+
+                // মাউস বা আঙুল ছবির ভেতরে আছে কি না চেক করা
+                if (wx >= dx && wx <= dx + w && wy >= dy + h * 0.1 && wy <= dy + h) {
+                    const depth = b.x + b.y;
+                    if (depth > highestZ) { highestZ = depth; clickedB = b; }
+                }
+            }
+
+            // যদি বিল্ডিংয়ের গায়ে চাপ পড়ে, তবে মাটির হিসাব বাদ দিয়ে বিল্ডিংয়ের হিসাব ধরবে
+            if (clickedB && (!tool || tool === 'demolish')) {
+                x = clickedB.x; y = clickedB.y;
+            }
+
+            if (!WorldManager.isInsideBounds(x, y)) return;
+            CameraController.hoverTile = { x, y };
+            
             if (tool === 'demolish') { BuildingManager.tryDemolish(x, y); return; }
             if (tool) { BuildingManager.tryBuild(x, y, tool); return; }
+            
             const b = BuildingManager.getAt(x, y);
             BuildingManager.selectedKey = b ? BuildingManager.key(x, y) : null;
+            
+            // সিলেক্ট করার পর বিল্ড মেনু লুকিয়ে ফেলা
             if (b) {
-    document.getElementById('build-tray').style.display = 'none';
-    document.getElementById('nav-build').classList.remove('active');
-}
+                document.getElementById('build-tray').style.display = 'none';
+                document.getElementById('nav-build').classList.remove('active');
+            }
+            
             UIManager.updateContextBar();
         }
     };
@@ -2281,7 +2342,7 @@ const ERAS = [
 
             const sprite = SpriteManager.getBuildingSprite(b.type, b.level);
             if (sprite) {
-                const scaleMult = spec.spriteScale || 1.18;
+                const scaleMult = 0.9;
                 const drawW = CONFIG.TILE_W * scaleMult;
                 const drawH = drawW * (sprite.height / sprite.width);
                 const dx = px - drawW / 2;
